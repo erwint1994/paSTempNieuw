@@ -30,6 +30,7 @@ namespace WindowsFormsApp1
         {
             SelectUsers();
             SelectUsersWFApp();
+            this.FormBorderStyle = FormBorderStyle.FixedSingle;
         }
         // buttons mail van service
         private void BtnAdd_Click(object sender, EventArgs e)

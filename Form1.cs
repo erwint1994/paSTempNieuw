@@ -33,6 +33,9 @@ namespace WindowsFormsApp1
         HttpClient HC = new HttpClient();
         DateTime NextMailAllowed = DateTime.Now;
         string BasePath = "http://api.pasys.nl/msgcenter/api/MsgJob/PostMsgJob";
+        private Excel.Application app = null;
+        private Excel.Workbook workbook = null;
+        private Excel.Worksheet worksheet = null;
         // programma start
         public Temperatuur()
         {
@@ -61,7 +64,7 @@ namespace WindowsFormsApp1
                     }
                     catch (Exception E)
                     {
-                       MessageBox.Show(E.Message);
+                        MessageBox.Show(E.Message);
                     }
                 }
             }
@@ -252,7 +255,7 @@ namespace WindowsFormsApp1
         }
         private void Temperatuur_Shown(object sender, EventArgs e)
         {
-            //BtnStatusSqlConnection.Enabled = false;
+
             TxbLastConnTime.Enabled = false;
             TxbUserLoggedIn.Enabled = false;
             TxbPcUser.Enabled = false;
@@ -317,6 +320,8 @@ namespace WindowsFormsApp1
                 BtnLocatieSensorOpslaan.Visible = false;
                 BtnSettingsSensor1.Visible = false;
                 BtnSettingsSensor2.Visible = false;
+                PnlActiveS2.Visible = false;
+                PnlActiveS1.Visible = false;
             }
             CheckLastDataDB();
             BtnOpvragenVanTot.Focus();
@@ -946,11 +951,11 @@ namespace WindowsFormsApp1
             Timer30ServiceAlert.Enabled = false;
             Timer60ServiceAlert.Enabled = false;
 
-            if(uitschakelenToolStripMenuItem.Checked == true)
+            if (uitschakelenToolStripMenuItem.Checked == true)
             {
                 uitschakelenToolStripMenuItem.Text = "Uitgeschakeld";
             }
-            if(uitschakelenToolStripMenuItem.Checked == false)
+            if (uitschakelenToolStripMenuItem.Checked == false)
             {
                 uitschakelenToolStripMenuItem.Text = "Uitschakelen";
             }
@@ -1116,7 +1121,7 @@ namespace WindowsFormsApp1
                     int AmountOfRows = Convert.ToInt32(ds.Tables[0].Rows[1]["Location_Id"]);
                     for (int i = 0; i < AmountOfRows; i++)
                     {
-                        List<string> xvals = new List<string>();
+                        List<DateTime> xvals = new List<DateTime>();
                         List<decimal> yvals = new List<decimal>();
                         string serieName = ds.Tables[0].Rows[i]["Location_Id"].ToString();
                         GrafiekCelsiusAll.Series.Add(serieName);
@@ -1127,7 +1132,7 @@ namespace WindowsFormsApp1
                             {
                                 if (String.Equals(serieName, dr["Location_Id"].ToString(), StringComparison.Ordinal))
                                 {
-                                    xvals.Add(dr["DateTime"].ToString());
+                                    xvals.Add(Convert.ToDateTime(dr["DateTime"]));
                                     yvals.Add(Convert.ToDecimal(dr["TemperatureCelsius"].ToString()));
                                 }
                             }
@@ -1136,15 +1141,16 @@ namespace WindowsFormsApp1
                                 throw new InvalidOperationException(E.Message);
                             }
                         }
+                        GrafiekCelsiusAll.ResetAutoValues();
                         try
                         {
-                            GrafiekCelsiusAll.Series[serieName].XValueType = ChartValueType.String;
+                            GrafiekCelsiusAll.Series[serieName].XValueType = ChartValueType.DateTime;
                             GrafiekCelsiusAll.Series[serieName].YValueType = ChartValueType.Auto;
                             GrafiekCelsiusAll.Series[serieName].Points.DataBindXY(xvals.ToArray(), yvals.ToArray());
                         }
-                        catch (Exception)
+                        catch (Exception E)
                         {
-                            throw new InvalidOperationException("fout");
+                            throw new InvalidOperationException("Error, Celsius grafiek 1+2",E);
                         }
                     }
                     GrafiekCelsiusAll.DataBind();
@@ -1167,7 +1173,7 @@ namespace WindowsFormsApp1
                     int AmountOfRows = Convert.ToInt32(ds.Tables[0].Rows[1]["Location_Id"]);
                     for (int i = 0; i < AmountOfRows; i++)
                     {
-                        List<string> xvals = new List<string>();
+                        List<DateTime> xvals = new List<DateTime>();
                         List<decimal> yvals = new List<decimal>();
                         string serieName = ds.Tables[0].Rows[i]["Location_Id"].ToString();
                         GrafiekKelvinAll.Series.Add(serieName);
@@ -1178,7 +1184,7 @@ namespace WindowsFormsApp1
                             {
                                 if (String.Equals(serieName, dr["Location_Id"].ToString(), StringComparison.Ordinal))
                                 {
-                                    xvals.Add(dr["DateTime"].ToString());
+                                    xvals.Add(Convert.ToDateTime(dr["DateTime"]));
                                     yvals.Add(Convert.ToDecimal(dr["TemperatureKelvin"].ToString()));
                                 }
                             }
@@ -1189,7 +1195,7 @@ namespace WindowsFormsApp1
                         }
                         try
                         {
-                            GrafiekKelvinAll.Series[serieName].XValueType = ChartValueType.String;
+                            GrafiekKelvinAll.Series[serieName].XValueType = ChartValueType.DateTime;
                             GrafiekKelvinAll.Series[serieName].YValueType = ChartValueType.Auto;
                             GrafiekKelvinAll.Series[serieName].Points.DataBindXY(xvals.ToArray(), yvals.ToArray());
                         }
@@ -1218,7 +1224,7 @@ namespace WindowsFormsApp1
                     int AmountOfRows = Convert.ToInt32(ds.Tables[0].Rows[1]["Location_Id"]);
                     for (int i = 0; i < AmountOfRows; i++)
                     {
-                        List<string> xvals = new List<string>();
+                        List<DateTime> xvals = new List<DateTime>();
                         List<decimal> yvals = new List<decimal>();
                         string serieName = ds.Tables[0].Rows[i]["Location_Id"].ToString();
                         GrafiekFarhenheidAll.Series.Add(serieName);
@@ -1229,7 +1235,7 @@ namespace WindowsFormsApp1
                             {
                                 if (String.Equals(serieName, dr["Location_Id"].ToString(), StringComparison.Ordinal))
                                 {
-                                    xvals.Add(dr["DateTime"].ToString());
+                                    xvals.Add(Convert.ToDateTime(dr["DateTime"]));
                                     yvals.Add(Convert.ToDecimal(dr["TemperatureFarhenheid"].ToString()));
                                 }
                             }
@@ -1240,7 +1246,7 @@ namespace WindowsFormsApp1
                         }
                         try
                         {
-                            GrafiekFarhenheidAll.Series[serieName].XValueType = ChartValueType.String;
+                            GrafiekFarhenheidAll.Series[serieName].XValueType = ChartValueType.DateTime;
                             GrafiekFarhenheidAll.Series[serieName].YValueType = ChartValueType.Auto;
                             GrafiekFarhenheidAll.Series[serieName].Points.DataBindXY(xvals.ToArray(), yvals.ToArray());
                         }
@@ -1267,7 +1273,7 @@ namespace WindowsFormsApp1
             BtnTimerStart1.Text = "Gestart";
             BtnTimerStop1.Text = "Stop";
             BtnTimerStart1.Enabled = false;
-            BtnTimerStop1.Enabled = true;        
+            BtnTimerStop1.Enabled = true;
         }
         private void BtnTimerStop_Click(object sender, EventArgs e)
         {
@@ -1281,7 +1287,7 @@ namespace WindowsFormsApp1
             BtnTimerStart1.Text = "Start";
             BtnTimerStop1.Text = "Gestopt";
             BtnTimerStart1.Enabled = true;
-            BtnTimerStop1.Enabled = false;          
+            BtnTimerStop1.Enabled = false;
             timer1.Stop();
         }
         private void BtnLogout_Click(object sender, EventArgs e)
@@ -1462,7 +1468,7 @@ namespace WindowsFormsApp1
                 GrafiekCelsiusAll.Visible = false;
                 GrafiekFarhenheidAll.Visible = false;
                 GrafiekKelvinAll.Visible = false;
-                
+
 
                 RdbCelsius1.Checked = false;
                 RdbKelvin1.Checked = false;
@@ -1777,7 +1783,7 @@ namespace WindowsFormsApp1
                 RdbFarhenheid2.Checked = false;
                 RdbKelvin1.Checked = false;
                 RdbKelvin2.Checked = false;
-                    RdbCelsiusAll.Checked = true;
+                RdbCelsiusAll.Checked = true;
 
                 GrafiekTemperatuur.Visible = false;
                 GrafiekTemperatuur2.Visible = false;
@@ -1785,7 +1791,7 @@ namespace WindowsFormsApp1
                 GrafiekKelvin2.Visible = false;
                 grafiekFarhenheid1.Visible = false;
                 grafiekFarhenheid2.Visible = false;
-                    GrafiekCelsiusAll.Visible = true;
+                GrafiekCelsiusAll.Visible = true;
                 GrafiekFarhenheidAll.Visible = false;
                 GrafiekKelvinAll.Visible = false;
 
@@ -1803,7 +1809,7 @@ namespace WindowsFormsApp1
                 }
 
                 GrafiekCelsiusAll.ChartAreas[0].AxisY.LabelStyle.Format = "0";
-                GrafiekCelsiusAll.ChartAreas["ChartArea1"].AxisX.LabelStyle.Format = "dd/MM/yyy \n HH:mm";
+                GrafiekCelsiusAll.ChartAreas[0].AxisX.LabelStyle.Format = "dd/MM/yyy \n HH:mm";
 
                 BtnOpvragenVanTot_Click(BtnOpvragenVanTot, null);
             }
@@ -2051,7 +2057,7 @@ namespace WindowsFormsApp1
                 {
                     MessageBox.Show(E.Message);
                 }
-            }              
+            }
         }
         public void SelectLocMinMaxCelsius2()
         {
@@ -2351,26 +2357,20 @@ namespace WindowsFormsApp1
         {
             try
             {
-                // open
-                Excel.Application excelApp = new Excel.Application();
-                // nieuw workbook
-                Excel.Workbook excelWorkBook = excelApp.Workbooks.Open(@"C:\Users\erwin\Downloads\tst.xlsx");
-
-                if (excelWorkBook.Sheets != null)
+                app = new Excel.Application
                 {
-                    excelWorkBook.Sheets.Delete();
-                }
-
+                    Visible = true
+                };
+                workbook = app.Workbooks.Add(1);
+                worksheet = (Excel.Worksheet)workbook.Sheets[1];
                 foreach (DataTable table in ds.Tables)
                 {
-                    Excel.Worksheet excelWorkSheet = excelWorkBook.Sheets.Add();
+                    Excel.Worksheet excelWorkSheet = workbook.Sheets.Add();
                     excelWorkSheet.Name = table.TableName;
-
                     for (int i = 1; i < table.Columns.Count + 1; i++)
                     {
                         excelWorkSheet.Cells[1, i] = table.Columns[i - 1].ColumnName;
                     }
-
                     for (int j = 0; j < table.Rows.Count; j++)
                     {
                         for (int k = 0; k < table.Columns.Count; k++)
@@ -2379,15 +2379,11 @@ namespace WindowsFormsApp1
                         }
                     }
                 }
-              //  excelWorkBook.SaveAs("excel_test.xlsx");
-                excelWorkBook.Save();
-                excelWorkBook.Close();
-                excelApp.Quit();
             }
-            catch (Exception E)
+            catch /*(Exception e)*/
             {
-                MessageBox.Show(E.Message);
+                //MessageBox.Show(e.Message);
             }
         }
-    }   
+    }
 }

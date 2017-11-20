@@ -198,6 +198,7 @@
             this.Controls.Add(this.LblVoornaam);
             this.Controls.Add(this.BtnVerzenden);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
             this.Name = "Contact";
             this.Text = "ContactFormulier";
             this.Load += new System.EventHandler(this.Contact_Load);
