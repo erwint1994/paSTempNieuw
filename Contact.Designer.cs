@@ -42,8 +42,8 @@
             this.TxbTelefoonnummer = new System.Windows.Forms.TextBox();
             this.TxbBericht = new System.Windows.Forms.TextBox();
             this.TxbAchternaam = new System.Windows.Forms.TextBox();
-            this.TxbEmail = new System.Windows.Forms.TextBox();
             this.LblEmail = new System.Windows.Forms.Label();
+            this.TxbEmail = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // BtnVerzenden
@@ -159,15 +159,6 @@
             this.TxbAchternaam.Size = new System.Drawing.Size(197, 20);
             this.TxbAchternaam.TabIndex = 3;
             // 
-            // TxbEmail
-            // 
-            this.TxbEmail.AcceptsTab = true;
-            this.TxbEmail.Location = new System.Drawing.Point(100, 152);
-            this.TxbEmail.Multiline = true;
-            this.TxbEmail.Name = "TxbEmail";
-            this.TxbEmail.Size = new System.Drawing.Size(197, 20);
-            this.TxbEmail.TabIndex = 6;
-            // 
             // LblEmail
             // 
             this.LblEmail.AutoSize = true;
@@ -177,13 +168,21 @@
             this.LblEmail.TabIndex = 15;
             this.LblEmail.Text = "Email* :";
             // 
+            // TxbEmail
+            // 
+            this.TxbEmail.AcceptsTab = true;
+            this.TxbEmail.Location = new System.Drawing.Point(100, 151);
+            this.TxbEmail.Name = "TxbEmail";
+            this.TxbEmail.Size = new System.Drawing.Size(197, 20);
+            this.TxbEmail.TabIndex = 6;
+            // 
             // Contact
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(453, 458);
-            this.Controls.Add(this.LblEmail);
             this.Controls.Add(this.TxbEmail);
+            this.Controls.Add(this.LblEmail);
             this.Controls.Add(this.TxbAchternaam);
             this.Controls.Add(this.TxbBericht);
             this.Controls.Add(this.TxbTelefoonnummer);
@@ -198,7 +197,7 @@
             this.Controls.Add(this.LblVoornaam);
             this.Controls.Add(this.BtnVerzenden);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "Contact";
             this.Text = "ContactFormulier";
             this.Load += new System.EventHandler(this.Contact_Load);
@@ -222,7 +221,7 @@
         private System.Windows.Forms.TextBox TxbTelefoonnummer;
         private System.Windows.Forms.TextBox TxbBericht;
         private System.Windows.Forms.TextBox TxbAchternaam;
-        private System.Windows.Forms.TextBox TxbEmail;
         private System.Windows.Forms.Label LblEmail;
+        private System.Windows.Forms.TextBox TxbEmail;
     }
 }

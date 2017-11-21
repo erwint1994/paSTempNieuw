@@ -19,6 +19,7 @@ using System.Web.Script.Serialization;
 using System.Collections.Generic;
 using System.Text;
 using Excel = Microsoft.Office.Interop.Excel;
+using Vertalen;
 
 namespace WindowsFormsApp1
 {
@@ -32,6 +33,7 @@ namespace WindowsFormsApp1
         double timeLeft = 9999999999999999;
         HttpClient HC = new HttpClient();
         DateTime NextMailAllowed = DateTime.Now;
+        //Vertaal vertalen = new Vertaal();
         string BasePath = "http://api.pasys.nl/msgcenter/api/MsgJob/PostMsgJob";
         private Excel.Application app = null;
         private Excel.Workbook workbook = null;
@@ -64,7 +66,7 @@ namespace WindowsFormsApp1
                     }
                     catch (Exception E)
                     {
-                        MessageBox.Show(E.Message);
+                       MessageBox.Show(E.Message);
                     }
                 }
             }
@@ -255,7 +257,8 @@ namespace WindowsFormsApp1
         }
         private void Temperatuur_Shown(object sender, EventArgs e)
         {
-
+            Vertaal.LoadVertaal();
+            
             TxbLastConnTime.Enabled = false;
             TxbUserLoggedIn.Enabled = false;
             TxbPcUser.Enabled = false;
@@ -320,8 +323,8 @@ namespace WindowsFormsApp1
                 BtnLocatieSensorOpslaan.Visible = false;
                 BtnSettingsSensor1.Visible = false;
                 BtnSettingsSensor2.Visible = false;
-                PnlActiveS2.Visible = false;
                 PnlActiveS1.Visible = false;
+                PnlActiveS2.Visible = false;
             }
             CheckLastDataDB();
             BtnOpvragenVanTot.Focus();
@@ -423,7 +426,7 @@ namespace WindowsFormsApp1
             Help help = new Help();
             help.Show();
         }
-        private void screenshotGrafiekToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ScreenshotGrafiekToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (RdbCelsius1.Checked == true)
             {
@@ -752,15 +755,15 @@ namespace WindowsFormsApp1
         }
         private void EngelsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Temperature temperature = new Temperature();
-            temperature.Show();
+            //Temperature temperature = new Temperature();
+            //temperature.Show();
         }
-        private void meldingenUitschakelenToolStripMenuItem_Click(object sender, EventArgs e)
+        private void MeldingenUitschakelenToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Gebruiker gebruikersBeheren = new Gebruiker();
             gebruikersBeheren.Show();
         }
-        private void fullScreenToolStripMenuItem2_Click(object sender, EventArgs e)
+        private void FullScreenToolStripMenuItem2_Click(object sender, EventArgs e)
         {
             this.WindowState = FormWindowState.Normal;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -769,7 +772,7 @@ namespace WindowsFormsApp1
             maximaalToolStripMenuItem1.Checked = false;
             minimaalToolStripMenuItem1.Checked = false;
         }
-        private void maximaalToolStripMenuItem1_Click(object sender, EventArgs e)
+        private void MaximaalToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             this.WindowState = FormWindowState.Maximized;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Sizable;
@@ -777,7 +780,7 @@ namespace WindowsFormsApp1
             maximaalToolStripMenuItem1.Checked = true;
             minimaalToolStripMenuItem1.Checked = false;
         }
-        private void minimaalToolStripMenuItem1_Click(object sender, EventArgs e)
+        private void MinimaalToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             this.WindowState = FormWindowState.Normal;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Sizable;
@@ -951,11 +954,11 @@ namespace WindowsFormsApp1
             Timer30ServiceAlert.Enabled = false;
             Timer60ServiceAlert.Enabled = false;
 
-            if (uitschakelenToolStripMenuItem.Checked == true)
+            if(uitschakelenToolStripMenuItem.Checked == true)
             {
                 uitschakelenToolStripMenuItem.Text = "Uitgeschakeld";
             }
-            if (uitschakelenToolStripMenuItem.Checked == false)
+            if(uitschakelenToolStripMenuItem.Checked == false)
             {
                 uitschakelenToolStripMenuItem.Text = "Uitschakelen";
             }
@@ -1141,7 +1144,6 @@ namespace WindowsFormsApp1
                                 throw new InvalidOperationException(E.Message);
                             }
                         }
-                        GrafiekCelsiusAll.ResetAutoValues();
                         try
                         {
                             GrafiekCelsiusAll.Series[serieName].XValueType = ChartValueType.DateTime;
@@ -1150,7 +1152,7 @@ namespace WindowsFormsApp1
                         }
                         catch (Exception E)
                         {
-                            throw new InvalidOperationException("Error, Celsius grafiek 1+2",E);
+                            throw new InvalidOperationException(E.Message);
                         }
                     }
                     GrafiekCelsiusAll.DataBind();
@@ -1273,7 +1275,7 @@ namespace WindowsFormsApp1
             BtnTimerStart1.Text = "Gestart";
             BtnTimerStop1.Text = "Stop";
             BtnTimerStart1.Enabled = false;
-            BtnTimerStop1.Enabled = true;
+            BtnTimerStop1.Enabled = true;        
         }
         private void BtnTimerStop_Click(object sender, EventArgs e)
         {
@@ -1287,7 +1289,7 @@ namespace WindowsFormsApp1
             BtnTimerStart1.Text = "Start";
             BtnTimerStop1.Text = "Gestopt";
             BtnTimerStart1.Enabled = true;
-            BtnTimerStop1.Enabled = false;
+            BtnTimerStop1.Enabled = false;          
             timer1.Stop();
         }
         private void BtnLogout_Click(object sender, EventArgs e)
@@ -1468,7 +1470,7 @@ namespace WindowsFormsApp1
                 GrafiekCelsiusAll.Visible = false;
                 GrafiekFarhenheidAll.Visible = false;
                 GrafiekKelvinAll.Visible = false;
-
+                
 
                 RdbCelsius1.Checked = false;
                 RdbKelvin1.Checked = false;
@@ -1783,7 +1785,7 @@ namespace WindowsFormsApp1
                 RdbFarhenheid2.Checked = false;
                 RdbKelvin1.Checked = false;
                 RdbKelvin2.Checked = false;
-                RdbCelsiusAll.Checked = true;
+                    RdbCelsiusAll.Checked = true;
 
                 GrafiekTemperatuur.Visible = false;
                 GrafiekTemperatuur2.Visible = false;
@@ -1791,7 +1793,7 @@ namespace WindowsFormsApp1
                 GrafiekKelvin2.Visible = false;
                 grafiekFarhenheid1.Visible = false;
                 grafiekFarhenheid2.Visible = false;
-                GrafiekCelsiusAll.Visible = true;
+                    GrafiekCelsiusAll.Visible = true;
                 GrafiekFarhenheidAll.Visible = false;
                 GrafiekKelvinAll.Visible = false;
 
@@ -1809,7 +1811,7 @@ namespace WindowsFormsApp1
                 }
 
                 GrafiekCelsiusAll.ChartAreas[0].AxisY.LabelStyle.Format = "0";
-                GrafiekCelsiusAll.ChartAreas[0].AxisX.LabelStyle.Format = "dd/MM/yyy \n HH:mm";
+                GrafiekCelsiusAll.ChartAreas["ChartArea1"].AxisX.LabelStyle.Format = "dd/MM/yyy \n HH:mm";
 
                 BtnOpvragenVanTot_Click(BtnOpvragenVanTot, null);
             }
@@ -1933,7 +1935,6 @@ namespace WindowsFormsApp1
                 }
             }
         }
-
         public void SettingsDtpVan()
         {
             using (SqlConnection connection = new SqlConnection(MyConnectionString2))
@@ -1979,7 +1980,6 @@ namespace WindowsFormsApp1
             //    //DtpTot.MaxDate = Dt1;
             //}
         }
-
         public void SelectLocMinMaxCelsius1()
         {
             using (SqlConnection connection = new SqlConnection(MyConnectionString2))
@@ -2057,7 +2057,7 @@ namespace WindowsFormsApp1
                 {
                     MessageBox.Show(E.Message);
                 }
-            }
+            }              
         }
         public void SelectLocMinMaxCelsius2()
         {
@@ -2355,35 +2355,54 @@ namespace WindowsFormsApp1
 
         public void ExportDataSetToExcel(DataSet ds)
         {
-            try
+            app = new Excel.Application
             {
-                app = new Excel.Application
+                Visible = true
+            };
+            workbook = app.Workbooks.Add(1);
+            worksheet = (Excel.Worksheet)workbook.Sheets[1];
+
+            foreach (DataTable table in ds.Tables)
+            {
+                worksheet.Name = table.TableName;
+
+                for (int i = 1; i < table.Columns.Count + 1; i++)
                 {
-                    Visible = true
-                };
-                workbook = app.Workbooks.Add(1);
-                worksheet = (Excel.Worksheet)workbook.Sheets[1];
-                foreach (DataTable table in ds.Tables)
+                    worksheet.Cells[1, i] = table.Columns[i - 1].ColumnName;
+                }
+
+                for (int j = 0; j < table.Rows.Count; j++)
                 {
-                    Excel.Worksheet excelWorkSheet = workbook.Sheets.Add();
-                    excelWorkSheet.Name = table.TableName;
-                    for (int i = 1; i < table.Columns.Count + 1; i++)
+                    for (int k = 0; k < table.Columns.Count; k++)
                     {
-                        excelWorkSheet.Cells[1, i] = table.Columns[i - 1].ColumnName;
-                    }
-                    for (int j = 0; j < table.Rows.Count; j++)
-                    {
-                        for (int k = 0; k < table.Columns.Count; k++)
-                        {
-                            excelWorkSheet.Cells[j + 2, k + 1] = table.Rows[j].ItemArray[k].ToString();
-                        }
+                        worksheet.Cells[j + 2, k + 1] = table.Rows[j].ItemArray[k].ToString();
                     }
                 }
             }
-            catch /*(Exception e)*/
-            {
-                //MessageBox.Show(e.Message);
-            }
         }
-    }
+
+        private void EngelsToolStripMenuItem_Click_1(object sender, EventArgs e)
+        {
+            nederlandsToolStripMenuItem.Checked = false;
+            duitsToolStripMenuItem.Checked = false;
+            engelsToolStripMenuItem.Checked = true;
+            Vertaal.DoVertaalForm(this, "EN");
+        }
+
+        private void NederlandsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            engelsToolStripMenuItem.Checked = false;
+            duitsToolStripMenuItem.Checked = false;
+            nederlandsToolStripMenuItem.Checked = true;
+            Vertaal.DoVertaalForm(this, "NL");
+        }
+
+        private void DuitsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            nederlandsToolStripMenuItem.Checked = false;
+            engelsToolStripMenuItem.Checked = false;
+            duitsToolStripMenuItem.Checked = true;
+            Vertaal.DoVertaalForm(this, "DE");
+        }
+    }  
 }

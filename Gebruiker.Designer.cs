@@ -65,7 +65,7 @@
             this.DtgMailMinMax.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.DtgMailMinMax.ShowEditingIcon = false;
             this.DtgMailMinMax.ShowRowErrors = false;
-            this.DtgMailMinMax.Size = new System.Drawing.Size(945, 229);
+            this.DtgMailMinMax.Size = new System.Drawing.Size(946, 229);
             this.DtgMailMinMax.TabIndex = 3;
             this.DtgMailMinMax.CellStateChanged += new System.Windows.Forms.DataGridViewCellStateChangedEventHandler(this.dataGridView1_CellStateChanged);
             // 
@@ -179,7 +179,7 @@
             this.DtgServiceError.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.DtgServiceError.ShowEditingIcon = false;
             this.DtgServiceError.ShowRowErrors = false;
-            this.DtgServiceError.Size = new System.Drawing.Size(945, 261);
+            this.DtgServiceError.Size = new System.Drawing.Size(946, 229);
             this.DtgServiceError.TabIndex = 19;
             this.DtgServiceError.CellStateChanged += new System.Windows.Forms.DataGridViewCellStateChangedEventHandler(this.dataGridView2_CellStateChanged);
             // 
@@ -247,7 +247,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(971, 593);
+            this.ClientSize = new System.Drawing.Size(1030, 593);
             this.Controls.Add(this.BtnEdit2);
             this.Controls.Add(this.BtnAdd2);
             this.Controls.Add(this.BtnDelete2);

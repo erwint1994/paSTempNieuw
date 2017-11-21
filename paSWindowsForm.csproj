@@ -65,13 +65,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\..\26 september 16-00\Form1.cs">
-      <Link>Form1.cs</Link>
+    <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="..\..\26 september 16-00\Form1.Designer.cs">
+    <Compile Include="Form1.designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
-      <Link>Form1.Designer.cs</Link>
     </Compile>
     <Compile Include="GebruikersWFBewerken.cs">
       <SubType>Form</SubType>
@@ -131,6 +129,10 @@
     </Compile>
     <Compile Include="Rights.cs" />
     <Compile Include="RootObject.cs" />
+    <Compile Include="Settings.cs" />
+    <Compile Include="Settings.Designer.cs">
+      <DependentUpon>Settings.cs</DependentUpon>
+    </Compile>
     <Compile Include="SettingsSensor1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -148,21 +150,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>tempdbDataSet.xsd</DependentUpon>
     </Compile>
-    <Compile Include="Temperature.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Temperature.Designer.cs">
-      <DependentUpon>Temperature.cs</DependentUpon>
-    </Compile>
-    <Compile Include="temperatuurDataSet.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>temperatuurDataSet.xsd</DependentUpon>
-    </Compile>
-    <EmbeddedResource Include="..\..\26 september 16-00\Form1.resx">
+    <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
-      <SubType>Designer</SubType>
-      <Link>Form1.resx</Link>
     </EmbeddedResource>
     <EmbeddedResource Include="GebruikersWFBewerken.resx">
       <DependentUpon>GebruikersWFBewerken.cs</DependentUpon>
@@ -193,33 +182,14 @@
     <EmbeddedResource Include="Links.resx">
       <DependentUpon>Links.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx" />
     <EmbeddedResource Include="SettingsSensor1.resx">
       <DependentUpon>SettingsSensor1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SettingsSensor2.resx">
       <DependentUpon>SettingsSensor2.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Temperature.resx">
-      <DependentUpon>Temperature.cs</DependentUpon>
-    </EmbeddedResource>
-    <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
-    <Compile Include="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Settings.settings</DependentUpon>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-    </Compile>
+    <None Include="Properties\Settings.settings" />
     <None Include="tempdbDataSet.xsc">
       <DependentUpon>tempdbDataSet.xsd</DependentUpon>
     </None>
@@ -230,17 +200,6 @@
     </None>
     <None Include="tempdbDataSet.xss">
       <DependentUpon>tempdbDataSet.xsd</DependentUpon>
-    </None>
-    <None Include="temperatuurDataSet.xsc">
-      <DependentUpon>temperatuurDataSet.xsd</DependentUpon>
-    </None>
-    <None Include="temperatuurDataSet.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>temperatuurDataSet.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="temperatuurDataSet.xss">
-      <DependentUpon>temperatuurDataSet.xsd</DependentUpon>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -308,13 +267,13 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\pasLogger\paSLogger.csproj">
-      <Project>{24F11581-3191-41B2-9EC7-1C73F4967A75}</Project>
-      <Name>paSLogger</Name>
+    <ProjectReference Include="..\Engels\Vertalen.csproj">
+      <Project>{7a6e2aa9-e6a5-4f60-9562-9413d0773300}</Project>
+      <Name>Vertalen</Name>
     </ProjectReference>
-    <ProjectReference Include="..\paSSettings\paSSettings.csproj">
-      <Project>{7d5ffffe-c36b-46db-8281-3323b786c618}</Project>
-      <Name>paSSettings</Name>
+    <ProjectReference Include="..\pasLogger\paSLogger.csproj">
+      <Project>{24f11581-3191-41b2-9ec7-1c73f4967a75}</Project>
+      <Name>paSLogger</Name>
     </ProjectReference>
     <ProjectReference Include="..\paSSQLF\paSSQL.csproj">
       <Project>{83e2f7e6-e603-4598-a308-248d57798b8c}</Project>

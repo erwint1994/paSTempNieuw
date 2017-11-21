@@ -5,7 +5,6 @@ using System.Data.SqlClient;
 using System.Drawing;
 using System.Configuration;
 using paSSQL;
-using pasLogger;
 using System.Text.RegularExpressions;
 
 namespace WindowsFormsApp1
